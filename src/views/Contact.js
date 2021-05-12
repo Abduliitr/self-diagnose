@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
-  Table,
+  // Table,
   Row,
   Col,
 } from "reactstrap";

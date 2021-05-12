@@ -1,6 +1,6 @@
 import React from "react";
 // react plugin used to create charts
-import { Line, Pie } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -15,9 +15,9 @@ import {
 } from "reactstrap";
 // core components
 import {
-  dashboard24HoursPerformanceChart,
+  // dashboard24HoursPerformanceChart,
   dashboardEmailStatisticsChart,
-  dashboardNASDAQChart,
+  // dashboardNASDAQChart,
 } from "variables/charts.js";
 
 import { store } from 'react-notifications-component';

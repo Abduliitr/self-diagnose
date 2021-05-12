@@ -10,11 +10,11 @@ import {
   CardTitle,
   Row,
   Col,
-  Button
+  // Button
 } from "reactstrap";
 // core components
 
-import { store } from 'react-notifications-component';
+// import { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
 
 class UserManual extends React.Component {
