@@ -2,18 +2,22 @@ import React from 'react'
 import Select from 'react-select'
 import gender_option from '../json/gender.json'
 import symptoms_option from '../json/symptoms.json'
+import Slider from '@material-ui/core/Slider';
+import Input from '@material-ui/core/Input';
 import InputRange from 'react-input-range';
 
 const custom_styles = {
   control: styles => ({ ...styles, background: 'transparent', padding: '10px' })
 }
 
+
+
 export default class PatientSetup extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       patientname: '',
-      age: '',
+      age: 0,
       gender: '',
       symptoms: ''
     }
@@ -76,10 +80,19 @@ export default class PatientSetup extends React.Component {
     this.props.handlebackSubmit()
   }
 
+  handleSliderChange = (event, newAge) => {
+    this.setState({age:newAge})
+  };
+
+   handleInputChange = (event) => {
+
+    this.setState({age: event.target.value === '' ? '' : Number(event.target.value)});
+  };
+ 
+
   render() {
 
-
-
+    
 
     return (
       <div>
@@ -95,7 +108,30 @@ export default class PatientSetup extends React.Component {
 
         {this.props.activeStep === 1 ?
           <>
-            <div className="patient-heading">  Age <input name='age' value={this.state.age} onChange={this.handleChange}/></div>
+         
+        
+
+            <div className="patient-heading">  Age  
+            <div  className="patient-heading-slide">
+            <Slider
+            value={typeof this.state.age === 'number' ? this.state.age : 0}
+            onChange={this.handleSliderChange}
+            aria-labelledby="input-slider"
+          /> 
+            <Input
+            value={this.state.age}
+            margin="dense"
+            onChange={this.handleInputChange}
+            inputProps={{
+              step: 10,
+              min: 0,
+              max: 100,
+              type: 'number',
+              'aria-labelledby': 'input-slider',
+            }}
+          />
+          </div>
+          </div>
                  
             <div className="diagnose-btn-next" onClick={this.handleageSubmit}> NEXT </div>
             <div className="diagnose-btn-back"  onClick={this.handlebackSubmit}> BACK </div>

@@ -95,3 +95,10 @@
     width: 30%;
     background-repeat: no-repeat;
 }
+.patient-heading-slide{
+    width: 50%;
+    margin: auto;
+}
+.patient-heading-slide input{
+    border: none;
+}
