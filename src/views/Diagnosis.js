@@ -1,12 +1,12 @@
 import React from "react";
 import axios from 'axios';
 
-import {Link} from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
+import '../assets/css/diagnosis.css'
 // reactstrap components
-import { Card, CardHeader, CardBody, Row, Col, Button, Label  } from "reactstrap";
+import { Card, CardHeader, CardBody, Row, Col, Button, Label } from "reactstrap";
 
-
+import PatientSetup from './PatientSetup'
 import { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
 
@@ -20,16 +20,21 @@ const required = (val) => val && val.length;
 
 class Diagnosis extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-        msg: '',
-        // trans:'',
-        data: []
+      msg: '',
+      // trans:'',
+      data: [],
+      activeStep: 0,
+      patientname: '',
+      age: '',
+      gender: '',
+      symptoms: []
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     store.addNotification({
       title: "Hola !",
       message: "Let's Diagnose now..",
@@ -41,27 +46,71 @@ class Diagnosis extends React.Component {
       dismiss: {
         duration: 3000,
         onScreen: true,
-        pauseOnHover:true
+        pauseOnHover: true
       }
     });
   }
 
+  handleNameSetup = data => {
+    this.setState({
+      patientname: data.patientname,
+      activeStep: this.state.activeStep + 1
+    })
+  }
+
+  handleAgeSetup = data => {
+    this.setState({
+      age: data.age,
+      activeStep: this.state.activeStep + 1
+    })
+  }
+
+  handlegenderSetup = data => {
+    this.setState({
+      gender: data.gender,
+      activeStep: this.state.activeStep + 1
+    })
+  }
+
+  handlesymtomsSetup = data => {
+    let newsymptoms = this.state.symptoms;
+   
+    let dummy=newsymptoms.filter( e=> e == data.symptoms) 
+
+    console.log(dummy,"dummy")
+    if(dummy==undefined||dummy===null||dummy.length===0)
+    {
+    newsymptoms.push(data.symptoms)
+    this.setState({
+      symptoms: newsymptoms
+    })
+    }
+
+
+    console.log("final Sumit")
+  }
+
+  handlebackSubmit = () => {
+    this.setState({
+      activeStep: this.state.activeStep - 1
+    })
+  }
 
   handleInputChange = (e) => {
     e.preventDefault();
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleTrans =(t)=>{
-      this.setState({msg: t});
+  handleTrans = (t) => {
+    this.setState({ msg: t });
   }
   // state = {  }
-  async getDataAxios(){
-      const response =
-        await axios.get(`http://${window.location.hostname}:8080/english-to-isl?id=${this.state.msg}`)
-      console.log(response.data)
-      this.setState({data: response.data});
-      // console.log(this.state.data);
+  async getDataAxios() {
+    const response =
+      await axios.get(`http://${window.location.hostname}:8080/english-to-isl?id=${this.state.msg}`)
+    console.log(response.data)
+    this.setState({ data: response.data });
+    // console.log(this.state.data);
   }
 
   // componentDidMount(){
@@ -71,166 +120,81 @@ class Diagnosis extends React.Component {
   // }
 
   handleSubmit = () => {
-      // alert("Your message is: " + this.state.msg);
-      console.log("msg is " + this.state.msg);
-      this.getDataAxios();
+    // alert("Your message is: " + this.state.msg);
+    console.log("msg is " + this.state.msg);
+    this.getDataAxios();
   }
 
+  removeElement = (e) => {
+    var symptoms = [...this.state.symptoms]; // make a separate copy of the array
+    var index = symptoms.indexOf(e)
+    if (index !== -1) {
+      symptoms.splice(index, 1);
+      this.setState({ symptoms: symptoms });
+    }
+
+  }
   render() {
     return (
       <>
         <div className="content">
-          <Row>
-            <Col md="12">
-              {/* <Card>
-                <CardHeader> */}
-                  {/* <h5 className="title" style={{display:"inline"}}>Self Diagnosis</h5> */}
-                  <Link to="/admin/dashboard">
-                      <Button color="primary" className="ml-auto" outline style={{display:"flex"}}>
-                          Back
-                      </Button>
-                  </Link>
-                {/* </CardHeader>
-                <CardBody> */}
-                    <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
-                      <Row>
-                        <Col>
-                          <Card>
-                            <CardHeader style={{textAlign:'center'}}>  
-                            <hr />                           
-                              <h6>Patients' Details:</h6>
-                              <hr />
-                            </CardHeader>
-                            <CardBody>
-                              <Row className="form-group">
-                                  <Col md={4}>
-                                      <Control.text model=".name" id="name" name="name"
-                                          placeholder="Patients' Name"   
-                                          className="form-control"
-                                          validators={{
-                                              required
-                                          }}
-                                      />
-                                      <Errors 
-                                          className="text-danger"
-                                          model=".name"
-                                          show="touched"
-                                          messages={{
-                                              required: 'Required!'
-                                          }}
-                                      />
-                                  </Col>
-                                  <Col md={2}>
-                                      <Control.text model=".age" id="age" name="age"
-                                        type="number"
-                                        min={0}
-                                          placeholder="Age (in years)"   
-                                          className="form-control"
-                                          validators={{
-                                              required
-                                          }}
-                                      />
-                                      <Errors 
-                                          className="text-danger"
-                                          model=".age"
-                                          show="touched"
-                                          messages={{
-                                              required: 'Required!'
-                                          }}
-                                      />
-                                  </Col>
-                                
-                                  <Col>
-                                    <Label md={3} style={{fontSize:"1.23em"}}>Gender:</Label>
-                                    <Label md={3}  style={{fontSize:"1.1em"}} ><Control.radio model=".gender" value="male" /> Male</Label>
-                                    <Label md={3}  style={{fontSize:"1.1em"}}><Control.radio model=".gender" value="female" /> Female</Label>
-                                    <Label md={3}  style={{fontSize:"1.1em"}}><Control.radio model=".gender" value="other" /> Other</Label>
-                                  </Col>
+          <div className="diagnose-parent">
 
-                              </Row>
-                            </CardBody>
-                          </Card>
-                        </Col>
-                      </Row>
+           <div className="diagnose-parent-title">
+              Self Diagnose
+              </div>
 
-                      {/* <hr /> */}
+               {this.state.activeStep === 0 ? (
+              <PatientSetup
+                data={this.state}
+                activeStep={0}
+                handlebackSubmit={this.handlebackSubmit}
+                handleNameSetup={this.handleNameSetup}
+              />
+            ) : null}
 
-                      <Row>
-                        <Col>
-                          <Card>
-                            <CardHeader style={{textAlign:'center'}}>    
-                            <hr />                          
-                              <h6>Please check all the statements below that apply to you:</h6>
-                              <p>Select one answer in each row.</p>
-                              <hr />
-                            </CardHeader>
-                              
-                            
-                            <CardBody>
-                              <Row className="form-group">
-                                                       
-                                  <Col md={12}>
-                                    <Label md={5} style={{fontSize:"1.23em"}}>I have diabetes:</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".diabetes" value="yes" /> Yes</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".diabetes" value="no" /> No</Label>
-                                    <Label md={3}  style={{fontSize:"1.1em"}}><Control.radio model=".diabetes" value="other" /> Don't Know</Label>
-                                  </Col>
+            {this.state.activeStep === 1 ? (
+              <PatientSetup
+                data={this.state}
+                activeStep={1}
+                handlebackSubmit={this.handlebackSubmit}
+                handleAgeSetup={this.handleAgeSetup}
+              />
+            ) : null}
 
-                                  <Col md={12}>
-                                    <Label md={5} style={{fontSize:"1.23em"}}>I have hypertension:</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".hypertension" value="yes" /> Yes</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".hypertension" value="no" /> No</Label>
-                                    <Label md={3}  style={{fontSize:"1.1em"}}><Control.radio model=".hypertension" value="other" /> Don't Know</Label>
-                                  </Col>
+            {this.state.activeStep === 2 ? (
+              <PatientSetup
+                data={this.state}
+                activeStep={2}
+                handlebackSubmit={this.handlebackSubmit}
+                handlegenderSetup={this.handlegenderSetup}
+              />
+            ) : null}
 
-                                  <Col md={12}>
-                                    <Label md={5} style={{fontSize:"1.23em"}}>I have high cholesterol:</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".cholesterol" value="yes" /> Yes</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".cholesterol" value="no" /> No</Label>
-                                    <Label md={3}  style={{fontSize:"1.1em"}}><Control.radio model=".cholesterol" value="other" /> Don't Know</Label>
-                                  </Col>
+            {this.state.activeStep === 3 ?
+              <>
+                {this.state.symptoms.map(symptom =>
+                  
+                  <div className="diagnose-parent-syptomslist-parent">
+                          <div className="diagnose-parent-syptomslist-parent-head" key={symptom.index}>{symptom}</div>
+                          <div className="diagnose-parent-syptomslist-parent-img" key={symptom.index} onClick={() => this.removeElement(symptom)}></div>
 
-                                  <Col md={12}>
-                                    <Label md={5} style={{fontSize:"1.23em"}}>I've recently suffered an injury:</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".injury" value="yes" /> Yes</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".injury" value="no" /> No</Label>
-                                    <Label md={3}  style={{fontSize:"1.1em"}}><Control.radio model=".injury" value="other" /> Don't Know</Label>
-                                  </Col>
+                  </div>
+                   )}
 
-                                  <Col md={12}>
-                                    <Label md={5} style={{fontSize:"1.23em"}}>I smoke cigarettes:</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".cigarettes" value="yes" /> Yes</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".cigarettes" value="no" /> No</Label>
-                                    <Label md={3}  style={{fontSize:"1.1em"}}><Control.radio model=".cigarettes" value="other" /> Don't Know</Label>
-                                  </Col>
+                <PatientSetup
+                  data={this.state}
+                  activeStep={3}
+                  handlesymtomsSetup={this.handlesymtomsSetup}
+                  handlebackSubmit={this.handlebackSubmit}
+                />
 
-                                  <Col md={12}>
-                                    <Label md={5} style={{fontSize:"1.23em"}}>I’m overweight or obese:</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".overweight" value="yes" /> Yes</Label>
-                                    <Label md={2}  style={{fontSize:"1.1em"}}><Control.radio model=".overweight" value="no" /> No</Label>
-                                    <Label md={3}  style={{fontSize:"1.1em"}}><Control.radio model=".overweight" value="other" /> Don't Know</Label>
-                                  </Col>
 
-                              </Row>
-                            </CardBody>
-                          </Card>
-                          <Row className="form-group">
-                              <Col md={6}>
-                                  <Button color="danger" id="reset" block type="reset">Reset</Button>
-                              </Col>
-                              <Col md={6}>
-                                  <Button type="submit" outline block color="success">
-                                      Submit
-                                  </Button>
-                              </Col>
-                          </Row>
-                        </Col>
-                      </Row>
-                    </LocalForm>
-                {/* </CardBody>
-              </Card> */}
-            </Col>
-          </Row>
+              </>
+              : null}
+
+
+          </div>
         </div>
       </>
     );
