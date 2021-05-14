@@ -74,10 +74,19 @@ class Diagnosis extends React.Component {
 
   handlesymtomsSetup = data => {
     let newsymptoms = this.state.symptoms;
+   
+    let dummy=newsymptoms.filter( e=> e == data.symptoms) 
+
+    console.log(dummy,"dummy")
+    if(dummy==undefined||dummy===null||dummy.length===0)
+    {
     newsymptoms.push(data.symptoms)
     this.setState({
       symptoms: newsymptoms
     })
+    }
+
+
     console.log("final Sumit")
   }
 
@@ -131,7 +140,10 @@ class Diagnosis extends React.Component {
         <div className="content">
           <div className="diagnose-parent">
 
-            how are you
+           <div className="diagnose-parent-title">
+              Self Diagnose
+              </div>
+
                {this.state.activeStep === 0 ? (
               <PatientSetup
                 data={this.state}
@@ -162,8 +174,13 @@ class Diagnosis extends React.Component {
             {this.state.activeStep === 3 ?
               <>
                 {this.state.symptoms.map(symptom =>
-                  <div key={symptom.index} onClick={() => this.removeElement(symptom)}>{symptom}</div>
-                )}
+                  
+                  <div className="diagnose-parent-syptomslist-parent">
+                          <div className="diagnose-parent-syptomslist-parent-head" key={symptom.index}>{symptom}</div>
+                          <div className="diagnose-parent-syptomslist-parent-img" key={symptom.index} onClick={() => this.removeElement(symptom)}></div>
+
+                  </div>
+                   )}
 
                 <PatientSetup
                   data={this.state}

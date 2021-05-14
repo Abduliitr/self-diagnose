@@ -2,20 +2,20 @@ import React from 'react'
 import Select from 'react-select'
 import gender_option from '../json/gender.json'
 import symptoms_option from '../json/symptoms.json'
-
+import InputRange from 'react-input-range';
 
 const custom_styles = {
-    control: styles => ({ ...styles, background: 'transparent', padding: '10px' })
-  }
-  
+  control: styles => ({ ...styles, background: 'transparent', padding: '10px' })
+}
+
 export default class PatientSetup extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-        patientname:'',
-        age:'',
-        gender:'',
-        symptoms:''
+      patientname: '',
+      age: '',
+      gender: '',
+      symptoms: ''
     }
   }
 
@@ -32,110 +32,113 @@ export default class PatientSetup extends React.Component {
     }))
   }
 
-   handlepatientSubmit=()=>{
-        let data={
-            patientname:this.state.patientname
-        }
-        this.props.handleNameSetup(data)
-    }   
-    handleageSubmit=()=>{
-        let data={
-            age:this.state.age
-        }
-        this.props.handleAgeSetup(data)
-    }   
-
-    handlegenderSubmit=()=>{
-        let data={
-            gender:this.state.gender.value
-        }
-        this.props.handlegenderSetup(data)
-    }   
-
-    handlesymptomsSubmit=()=>{
-        let data={
-            symptoms:this.state.symptoms.value
-        }
-        this.props.handlesymtomsSetup(data)
-    }   
-    handleChange=(e)=>{
-        const name = e.target.name
-        let value = e.target.value
-        this.setState({ [name]: value })
+  handlepatientSubmit = () => {
+    let data = {
+      patientname: this.state.patientname
     }
-    handleSelectGenderChange = selectedOption => {
-        this.setState({ gender: selectedOption })
-      }
-
-      handleSelectSymtomsChange = selectedOption => {
-        this.setState({ symptoms: selectedOption })
-      }
-
-    handlebackSubmit=()=>{
-
-        this.props.handlebackSubmit()
+    this.props.handleNameSetup(data)
+  }
+  handleageSubmit = () => {
+    let data = {
+      age: this.state.age
     }
+    this.props.handleAgeSetup(data)
+  }
+
+  handlegenderSubmit = () => {
+    let data = {
+      gender: this.state.gender.value
+    }
+    this.props.handlegenderSetup(data)
+  }
+
+  handlesymptomsSubmit = () => {
+    let data = {
+      symptoms: this.state.symptoms.value
+    }
+    this.props.handlesymtomsSetup(data)
+  }
+  handleChange = (e) => {
+    const name = e.target.name
+    let value = e.target.value
+    this.setState({ [name]: value })
+  }
+  handleSelectGenderChange = selectedOption => {
+    this.setState({ gender: selectedOption })
+  }
+
+  handleSelectSymtomsChange = selectedOption => {
+    this.setState({ symptoms: selectedOption }, () => this.handlesymptomsSubmit())
+  }
+
+  handlebackSubmit = () => {
+
+    this.props.handlebackSubmit()
+  }
 
   render() {
 
 
 
-   
+
     return (
-     <div>
-         
-         {this.props.activeStep===0 ?
-         <>
-         Name: <input name='patientname' value={this.state.patientname} onChange={this.handleChange}/>
-         <div onClick={this.handlepatientSubmit}> NEXT </div>
-     
-         </>
-         :null}
+      <div>
 
-         {this.props.activeStep===1 ?
-         <>
-         Age: <input name='age' value={this.state.age} onChange={this.handleChange}/>
-         <div onClick={this.handleageSubmit}> NEXT </div>
-         <div onClick={this.handlebackSubmit}> BACK </div>
-         </>
-         :null} 
+        {this.props.activeStep === 0 ?
+          <>
 
-        {this.props.activeStep===2 ?
-         <>
-         Gender: 
-         <Select
-                    styles={custom_styles}
-                    value={this.state.gender}
-                    onChange={event => {
-                      this.handleSelectGenderChange(event)
-                    }}
-                    options={this.getGender()}
-                    placeholder="Gender"
-                  />
-         <div onClick={this.handlegenderSubmit}> NEXT </div>
-         <div onClick={this.handlebackSubmit}> BACK </div>
-         </>
-         :null} 
+          <div className="patient-heading">  Name: <input name='patientname' value={this.state.patientname} onChange={this.handleChange} /></div>
+            <div className="diagnose-btn-next" onClick={this.handlepatientSubmit}> NEXT </div>
 
-        {this.props.activeStep===3 ?
-        <>
-        Symptoms
-        <Select
-                    styles={custom_styles}
-                    value={this.state.symptoms}
-                    onChange={event => {
-                      this.handleSelectSymtomsChange(event)
-                    }}
-                    options={this.getSymtoms()}
-                    placeholder="symptoms"
-                  />
-        <div onClick={this.handlesymptomsSubmit}> SUBMIT </div>
-        <div onClick={this.handlebackSubmit}> BACK </div>
-        </>
-        :null} 
-       
+          </>
+          : null}
 
-     </div>
+        {this.props.activeStep === 1 ?
+          <>
+            <div className="patient-heading">  Age <input name='age' value={this.state.age} onChange={this.handleChange}/></div>
+                 
+            <div className="diagnose-btn-next" onClick={this.handleageSubmit}> NEXT </div>
+            <div className="diagnose-btn-back"  onClick={this.handlebackSubmit}> BACK </div>
+          </>
+          : null}
+
+        {this.props.activeStep === 2 ?
+          <>
+           <div className="patient-heading"> Gender:
+            <Select
+              styles={custom_styles}
+              value={this.state.gender}
+              onChange={event => {
+                this.handleSelectGenderChange(event)
+              }}
+              options={this.getGender()}
+              placeholder="Gender"
+            /></div>
+            <div className="diagnose-btn-next" onClick={this.handlegenderSubmit}> NEXT </div>
+            <div className="diagnose-btn-back" onClick={this.handlebackSubmit}> BACK </div>
+          </>
+          : null}
+
+        {this.props.activeStep === 3 ?
+          <>
+           <div className="patient-heading">  Symptoms
+            <Select
+              styles={custom_styles}
+              value={this.state.symptoms}
+              onChange={event => {
+                this.handleSelectSymtomsChange(event)
+
+              }}
+              options={this.getSymtoms()}
+              placeholder="symptoms"
+            /></div>
+            {/* <div className="diagnose-btn-next" onClick={this.handlesymptomsSubmit}> SUBMIT </div> */}
+            <div className="diagnose-btn-back" onClick={this.handlebackSubmit}> BACK </div>
+          </>
+          : null}
+
+
+      </div>
     )
   }
 }

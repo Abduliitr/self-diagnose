@@ -1,5 +1,5 @@
 .diagnose-parent{
-
+    text-align: center;
     border-radius: 12px;
     box-shadow: 0 6px 10px -4px rgb(0 0 0 / 15%);
     background-color: #FFFFFF;
@@ -13,5 +13,85 @@
     min-width: 0;
     word-wrap: break-word;
     background-clip: border-box;
-    padding: 15px 15px 0;
+    padding: 15px 10rem 0;
+}
+.diagnose-parent-title{
+
+    margin-top: 10px;
+    margin-bottom: 0.75rem;
+    font-size: 1.57em;
+    line-height: 1.4em;
+    font-weight: 400;
+}
+
+.diagnose-btn-next{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    cursor: pointer;
+    display: flex;
+    float: right;
+    align-items: center;
+    width: fit-content;
+    font-size: 28px;
+    line-height: 0.35em;
+    padding: 20px;
+    background: transparent;
+    border: 2px solid #51cbce !important;
+    color: #51cbce;
+    opacity: 1;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 3px;
+ 
+    transition: all 150ms linear;
+}
+.diagnose-btn-back{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    cursor: pointer;
+    display: flex;
+    /* float: right; */
+    align-items: center;
+    width: fit-content;
+    font-size: 28px;
+    line-height: 0.35em;
+    padding: 20px;
+    background: transparent;
+    border: 2px solid #fbc658 !important;
+    color: #fbc658;
+    opacity: 1;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 3px;
+ 
+    transition: all 150ms linear;
+}
+.patient-heading {
+    font-size: 30px;
+    margin-top: 5rem;
+    justify-content: space-evenly;
+}
+
+.patient-heading input{
+    margin-left: 2rem;
+    border: none;
+    border-bottom: 2px solid green;
+}
+
+.diagnose-parent-syptomslist-parent{
+    display: flex;
+    justify-content: space-evenly;
+}
+.diagnose-parent-syptomslist-parent-head{
+    margin-bottom: 10px;
+    width: 70%;
+    font-size: 20px;
+}
+.diagnose-parent-syptomslist-parent-img{
+    cursor: pointer;
+    background: url('../img/redcross.png');
+    margin-bottom: 10px;
+    background-size: contain;
+    width: 30%;
+    background-repeat: no-repeat;
 }
