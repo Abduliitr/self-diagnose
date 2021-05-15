@@ -33,7 +33,8 @@ class Diagnosis extends React.Component {
       patientname: '',
       age: '',
       gender: '',
-      symptoms: []
+      symptoms: [],
+      symptomsduration:[]
     }
   }
 
@@ -75,6 +76,11 @@ class Diagnosis extends React.Component {
     })
   }
 
+  handlenextSubmit=()=>{
+    this.setState({
+      activeStep: this.state.activeStep + 1
+    })
+  }
   handlesymtomsSetup = data => {
     let newsymptoms = this.state.symptoms;
    
@@ -85,7 +91,7 @@ class Diagnosis extends React.Component {
     {
     newsymptoms.push(data.symptoms)
     this.setState({
-      symptoms: newsymptoms
+      symptoms: newsymptoms,
     })
     }
 
@@ -137,6 +143,9 @@ class Diagnosis extends React.Component {
     }
 
   }
+  handledurationSetup=(data)=>{
+
+  }
   render() {
     return (
       <>
@@ -176,25 +185,37 @@ class Diagnosis extends React.Component {
 
             {this.state.activeStep === 3 ?
               <>
-                {this.state.symptoms.map(symptom =>
+                {this.state.symptoms && this.state.symptoms.length >0 && this.state.symptoms.map(symptom =>
                   
                   <div className="diagnose-parent-syptomslist-parent">
                           <div className="diagnose-parent-syptomslist-parent-head" key={symptom.index}>{symptom}</div>
                           <div className="diagnose-parent-syptomslist-parent-img" key={symptom.index} onClick={() => this.removeElement(symptom)}></div>
 
                   </div>
-                   )}
-
+                   )
+              
+              }
                 <PatientSetup
                   data={this.state}
                   activeStep={3}
                   handlesymtomsSetup={this.handlesymtomsSetup}
                   handlebackSubmit={this.handlebackSubmit}
+                  handlenextSubmit={this.handlenextSubmit}
+
                 />
 
-
+                
               </>
               : null}
+
+            {this.state.activeStep === 4 ? (
+              <PatientSetup
+                data={this.state}
+                activeStep={4}
+                handlebackSubmit={this.handlebackSubmit}
+                handledurationSetup={this.handledurationSetup}
+              />
+            ) : null}
 
 
           </div>
