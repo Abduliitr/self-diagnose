@@ -1,0 +1,146 @@
+.diagnose-parent{
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 6px 10px -4px rgb(0 0 0 / 15%);
+    background-color: #FFFFFF;
+    color: #252422;
+    margin-bottom: 20px;
+    position: relative;
+    border: 0 none;
+    transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    padding: 15px 10rem 0;
+}
+.diagnose-parent-title{
+
+    color: #f443369c;
+    margin-top: 10px;
+    margin-bottom: 5rem;
+    font-size: 2.57em;
+    line-height: 1.4em;
+    font-weight: 400;
+}
+
+.diagnose-btn-next{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    cursor: pointer;
+    display: flex;
+    float: right;
+    align-items: center;
+    width: fit-content;
+    font-size: 28px;
+    line-height: 0.35em;
+    padding: 20px;
+    background: transparent;
+    border: 2px solid #51cbce !important;
+    color: #51cbce;
+    opacity: 1;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 3px;
+ 
+    transition: all 150ms linear;
+}
+.diagnose-btn-back{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    cursor: pointer;
+    display: flex;
+    /* float: right; */
+    align-items: center;
+    width: fit-content;
+    font-size: 28px;
+    line-height: 0.35em;
+    padding: 20px;
+    background: transparent;
+    border: 2px solid #fbc658 !important;
+    color: #fbc658;
+    opacity: 1;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 3px;
+ 
+    transition: all 150ms linear;
+}
+.patient-heading {
+    font-size: 24px;
+    margin-top: 2rem;
+    color: #000000a1;
+    margin-bottom: 2rem;
+    line-height: 2rem;
+    /* justify-content: space-evenly; */
+    text-align: left;
+}
+
+.patient-heading input{
+    margin-left: 2rem;
+    border: none;
+    border-bottom: 2px solid;
+}
+
+.diagnose-parent-syptomslist-parent{
+    display: flex;
+    justify-content: space-evenly;
+}
+.diagnose-parent-syptomslist-parent-head{
+    margin-bottom: 10px;
+    width: 70%;
+    font-size: 20px;
+}
+.diagnose-parent-syptomslist-parent-img{
+    cursor: pointer;
+    background: url('../img/redcross.png');
+    margin-bottom: 10px;
+    background-size: contain;
+    width: 30%;
+    background-repeat: no-repeat;
+}
+.patient-heading-slide{
+    width: 50%;
+    margin: auto;
+}
+.patient-heading-slide input{
+    border: none;
+}
+
+.patient-heading-symptom-body{
+    margin-top: 2rem;
+    font-size: 14px;
+    margin-bottom: 2rem;
+}
+
+#Symptoms-duration{
+    font-size: 20px;
+}
+
+
+table#Symptoms-duration td{
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+.patient-diagnose-moreinfo-parent{
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    margin: 1rem 0;
+    font-weight: 600;
+}
+
+.patient-diagnose-moreinfo-child{
+    width: 33.33%;
+}
+.patient-diagnose-moreinfo-childs{
+    font-weight: 400 !important;
+    width: 33.33%;
+}
+input[type=radio] {
+    border: 0px;
+    width: 30%;
+    height: 1em;
+}
