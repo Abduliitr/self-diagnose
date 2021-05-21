@@ -52,7 +52,7 @@ class Sidebar extends React.Component {
             // href="https://www.creative-tim.com"
             className="simple-text logo-normal"
           >
-            I4SG Team 4
+            SymptoCheck
           </a>
         </div>
         <div className="sidebar-wrapper" ref={this.sidebar}>

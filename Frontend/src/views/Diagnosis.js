@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { Link } from 'react-router-dom'
 import '../assets/css/diagnosis.css'
+import FetchAPI from '../utils/fetchAPI';
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col, Button, Label } from "reactstrap";
 
@@ -18,6 +19,8 @@ const required = (val) => val && val.length;
 // const isNumber = (val) => !isNaN(Number(val));
 // const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val)
 
+
+
 class Diagnosis extends React.Component {
 
   constructor(props) {
@@ -30,7 +33,10 @@ class Diagnosis extends React.Component {
       patientname: '',
       age: '',
       gender: '',
-      symptoms: []
+      symptoms: [],
+      symptomduration:{},
+      moreinfo:{},
+      disease:[]
     }
   }
 
@@ -72,17 +78,22 @@ class Diagnosis extends React.Component {
     })
   }
 
+  handlenextSubmit=()=>{
+    this.setState({
+      activeStep: this.state.activeStep + 1
+    })
+  }
   handlesymtomsSetup = data => {
     let newsymptoms = this.state.symptoms;
    
-    let dummy=newsymptoms.filter( e=> e == data.symptoms) 
+    let dummy=newsymptoms.filter( e=> e["symptom"] == data.symptoms) 
 
-    console.log(dummy,"dummy")
+    // console.log(dummy,"dummy")
     if(dummy==undefined||dummy===null||dummy.length===0)
     {
-    newsymptoms.push(data.symptoms)
+    newsymptoms.push({"symptom":data.symptoms,"value":data.key})
     this.setState({
-      symptoms: newsymptoms
+      symptoms: newsymptoms,
     })
     }
 
@@ -134,19 +145,35 @@ class Diagnosis extends React.Component {
     }
 
   }
+  handledurationSetup=(data)=>{
+    this.setState({symptomduration:data,activeStep: this.state.activeStep + 1});
+  }
+  handlegenInfoSetup=(data)=>{
+    this.setState({moreinfo:data,activeStep:this.state.activeStep + 1})
+    let arr=this.state.symptoms.map(e=>  e["value"])
+    var zero = new Array(132).fill(0);
+
+    arr.map(val=>zero[val]=1)
+    let textjson={"symptoms":zero}
+    console.log(zero)
+    FetchAPI('POST', '/api/v1/symptoms', textjson, null)
+    .then(res => {
+        this.setState({disease:res.data});
+        // console.log(res);
+      })
+  }
   render() {
     return (
       <>
         <div className="content">
           <div className="diagnose-parent">
 
-           <div className="diagnose-parent-title">
-              Self Diagnose
-              </div>
+          
 
                {this.state.activeStep === 0 ? (
               <PatientSetup
                 data={this.state}
+                info="INTRO"
                 activeStep={0}
                 handlebackSubmit={this.handlebackSubmit}
                 handleNameSetup={this.handleNameSetup}
@@ -156,6 +183,7 @@ class Diagnosis extends React.Component {
             {this.state.activeStep === 1 ? (
               <PatientSetup
                 data={this.state}
+                info="What Is Your Age?"
                 activeStep={1}
                 handlebackSubmit={this.handlebackSubmit}
                 handleAgeSetup={this.handleAgeSetup}
@@ -165,6 +193,7 @@ class Diagnosis extends React.Component {
             {this.state.activeStep === 2 ? (
               <PatientSetup
                 data={this.state}
+                info="What Is Your Gender?"
                 activeStep={2}
                 handlebackSubmit={this.handlebackSubmit}
                 handlegenderSetup={this.handlegenderSetup}
@@ -172,26 +201,47 @@ class Diagnosis extends React.Component {
             ) : null}
 
             {this.state.activeStep === 3 ?
-              <>
-                {this.state.symptoms.map(symptom =>
-                  
-                  <div className="diagnose-parent-syptomslist-parent">
-                          <div className="diagnose-parent-syptomslist-parent-head" key={symptom.index}>{symptom}</div>
-                          <div className="diagnose-parent-syptomslist-parent-img" key={symptom.index} onClick={() => this.removeElement(symptom)}></div>
-
-                  </div>
-                   )}
-
+              
                 <PatientSetup
                   data={this.state}
+                  info=" Add Your Symptoms"
                   activeStep={3}
                   handlesymtomsSetup={this.handlesymtomsSetup}
                   handlebackSubmit={this.handlebackSubmit}
+                  handlenextSubmit={this.handlenextSubmit}
+                  removeElement={this.removeElement}
+
                 />
-
-
-              </>
               : null}
+
+            {this.state.activeStep === 4 ? (
+              <PatientSetup
+                data={this.state}
+                info=" Choose Symptoms duration"
+                activeStep={4}
+                handlebackSubmit={this.handlebackSubmit}
+                handledurationSetup={this.handledurationSetup}
+              />
+            ) : null}
+
+            {this.state.activeStep === 5 ? (
+              <PatientSetup
+                data={this.state}
+                info="Few more Information"
+                activeStep={5}
+                handlebackSubmit={this.handlebackSubmit}
+                handlegenInfoSetup={this.handlegenInfoSetup} 
+              />
+            ) : null}
+             {this.state.activeStep === 6 ? (
+              <PatientSetup
+                data={this.state}
+                info="RESULTS"
+                activeStep={6}
+                handlebackSubmit={this.handlebackSubmit}
+                handlegenInfoSetup={this.handlegenInfoSetup}
+              />
+            ) : null}
 
 
           </div>
