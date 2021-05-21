@@ -21,8 +21,8 @@ class Contact extends React.Component {
 
   componentDidMount(){
     store.addNotification({
-      title: "Team 4: Amigos de Sordos!",
-      message: "Made with ♥ for I4SG",
+      title: "We care for you!",
+      message: "Made with ♥ for you",
       type: "default",
       insert: "top",
       container: "top-right",
@@ -44,7 +44,7 @@ class Contact extends React.Component {
             <Col md="12">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Team 4: Amigos de Sordos</CardTitle>
+                  <CardTitle tag="h4">Our Team:</CardTitle>
                 </CardHeader>
                 <CardBody>
                 <FadeIn>
@@ -74,7 +74,7 @@ class Contact extends React.Component {
                 </CardBody>
               </Card>
             </Col>
-            <Col md="12">
+            {/* <Col md="12">
               <Card className="card-plain">
                 <CardHeader>
                   <CardTitle tag="h4">Other Contacts</CardTitle>
@@ -86,7 +86,7 @@ class Contact extends React.Component {
                   
                 </CardBody>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
         </div>
       </>

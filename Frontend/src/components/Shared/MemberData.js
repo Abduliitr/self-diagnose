@@ -1,42 +1,26 @@
 export const Members = [
     {
-    src: require("assets/img/ashish.jpeg"),
-    name: "Ashish (Manager)"
-    },
-    {
-    src: require("assets/img/sitanshu.png"),
-    name: "Sitanshu (Manager)"
-    },
-    {
-    src: require("assets/img/parag.jpg"),
-    name: "Parag (Mentor)"
-    },
-    {
-    src: require("assets/img/srini.jpeg"),
-    name: "Srinidhi (Mentor)"
-    },
-    {
-    src: require("assets/img/chirag.jpeg"),
-    name: "Chirag Agarwal"
-    },
-    {
-    src: require("assets/img/karan.png"),
-    name: "Karan Vaish"
-    },
-    {
     src: require("assets/img/abdul.jpeg"),
-    name: "Abdulahad Khan"
+    name: "Abdulahad (17112002)"
     },
     {
-    src: require("assets/img/amar.jpeg"),
-    name: "Amarjeet Sinha"
+    src: require("assets/img/harkirat.jpeg"),
+    name: "Harkirat (17112032)"
     },
     {
-    src: require("assets/img/katariya.jpg"),
-    name: "Rahul Katariya"
+    src: require("assets/img/mudit.jpeg"),
+    name: "Mudit (17113069)"
     },
     {
-    src: require("assets/img/kumar.jpeg"),
-    name: "Rahul Kumar"
+    src: require("assets/img/Muskaan.jpg"),
+    name: "Muskaan (17111021)"
+    },
+    {
+    src: require("assets/img/prakhar.jpg"),
+    name: "Prakhar (17118050)"
+    },
+    {
+    src: require("assets/img/pranjal.jpeg"),
+    name: "Pranjal (17118051)"
     }
 ];  

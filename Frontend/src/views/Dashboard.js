@@ -28,7 +28,7 @@ class Dashboard extends React.Component {
   componentDidMount(){
     store.addNotification({
       title: "Welcome!",
-      message: "- by Team 4: Amigos de Sordos",
+      message: "- by Team Sympto Check",
       type: "default",
       insert: "top",
       container: "top-right",
@@ -52,45 +52,15 @@ class Dashboard extends React.Component {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-caps-small text-warning" />
-                      </div>
-                    </Col>
-                    <Col md="8" xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Text to ISL</p>
-                        {/* <p className="card-category">1000+</p> */}
-                        <Link to="/admin/text2isl">
-                            <Button color="primary" outline style={{fontSize:".35em", lineHeight:"0.35em", padding:"10px 10px"}}>
-                                English to ISL
-                            </Button>
-                        </Link>
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="fas fa-sync-alt" /> Check Out Now
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6" sm="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col md="4" xs="5">
-                      <div className="icon-big text-center icon-warning">
                         <i className="nc-icon nc-circle-10 text-success" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
-                        <p className="card-category">ISL to Text</p>
-                        <Link to="/admin/isl2text">
-                            <Button color="warning" outline style={{fontSize:".35em", lineHeight:"0.35em", padding:"10px 10px"}}>
-                                ISL to English
+                        <p className="card-category">Complete Health CheckUp</p>
+                        <Link to="/admin/diagnosis">
+                            <Button color="success" outline style={{fontSize:".35em", lineHeight:"0.35em", padding:"10px 10px"}}>
+                                Diagnose Now for free!
                             </Button>
                         </Link>
                         {/* <CardTitle tag="p">$ 1,345</CardTitle> */}
@@ -107,8 +77,8 @@ class Dashboard extends React.Component {
                 </CardFooter>
               </Card>
             </Col>
-            <Col lg="2" md="12" sm="12">
-              {/* <Card className="card-stats">
+            <Col lg="3" md="6" sm="6">
+              <Card className="card-stats">
                 <CardBody>
                   <Row>
                     <Col md="4" xs="5">
@@ -118,7 +88,7 @@ class Dashboard extends React.Component {
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
-                        <p className="card-category">Errors</p>
+                        <p className="card-category">Tests done</p>
                         <CardTitle tag="p">23</CardTitle>
                         <p />
                       </div>
@@ -131,10 +101,40 @@ class Dashboard extends React.Component {
                     <i className="far fa-clock" /> In the last hour
                   </div>
                 </CardFooter>
-              </Card> */}
+              </Card>
             </Col>
-            <Col lg="4" md="12" sm="12">
-              <Link to="/admin/user-manual">
+            <Col lg="3" md="6" sm="6">
+              <Card className="card-stats">
+                <CardBody>
+                  <Row>
+                    <Col md="4" xs="5">
+                      <div className="icon-big text-center icon-warning">
+                        <i className="nc-icon nc-satisfied text-primary" />
+                      </div>
+                    </Col>
+                    <Col md="8" xs="7">
+                      <div className="numbers">
+                        <p className="card-category">We are there for you..</p>
+                        <p />
+                        <Link to="/admin/contact-us">
+                            <Button color="warning" outline style={{fontSize:".35em", lineHeight:"0.35em", padding:"10px 10px"}}>
+                              Meet Our Team
+                            </Button>
+                        </Link>
+                      </div>
+                    </Col>
+                  </Row>
+                </CardBody>
+                <CardFooter>
+                  <hr />
+                  <div className="stats">
+                    <i className="far fa-item" /> Reach out to us!
+                  </div>
+                </CardFooter>
+              </Card>
+            </Col>
+            <Col lg="3" md="6" sm="6">
+              {/* <Link to="/admin/user-manual"> */}
               <Card className="card-stats">
                 <CardBody>
                   <Row>
@@ -146,9 +146,14 @@ class Dashboard extends React.Component {
                     <Col md="8" xs="7">
                       <div className="numbers">
                         <p className="card-category"></p>
-                        <CardTitle tag="p">User Guide</CardTitle>
-                        <p className="card-category">How to use?</p>
+                        {/* <CardTitle tag="p">User Guide</CardTitle> */}
+                        <p className="card-category">User Guide</p>
                         <p />
+                        <Link to="/admin/user-manual">
+                            <Button color="danger" outline style={{fontSize:".35em", lineHeight:"0.35em", padding:"10px 10px"}}>
+                                How to use?
+                            </Button>
+                        </Link>
                       </div>
                     </Col>
                   </Row>
@@ -156,11 +161,11 @@ class Dashboard extends React.Component {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    {/* <i className="fas fa-sync-alt" /> Update now */}
+                    <i className="fas fa-sync-alt" /> Updated
                   </div>
                 </CardFooter>
               </Card>
-              </Link>
+              {/* </Link> */}
             </Col>
           </Row>
 
