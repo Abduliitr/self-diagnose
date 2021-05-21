@@ -2,6 +2,8 @@ import React from 'react'
 import Select from 'react-select'
 import gender_option from '../json/gender.json'
 import symptoms_option from '../json/symptoms.json'
+import new_symptoms_option from '../json/newsymptoms.json'
+
 import Slider from '@material-ui/core/Slider';
 import Input from '@material-ui/core/Input';
 import InputRange from 'react-input-range';
@@ -27,15 +29,22 @@ export default class PatientSetup extends React.Component {
 
   getGender = () => {
     return gender_option.map(gender => ({
-      value: gender.name,
+      value: gender.i,
       label: gender.name
     }))
   }
   getSymtoms = () => {
-    return symptoms_option.map(symptoms => ({
-      value: symptoms.name,
-      label: symptoms.name
+
+    let newsymptoms=new_symptoms_option[0].split(",")
+     return newsymptoms.map((symptoms,key) => ({
+      value: key,
+      label: symptoms
     }))
+
+    // return symptoms_option.map(symptoms => ({
+    //   value: symptoms.name,
+    //   label: symptoms.name
+    // }))
   }
 
   handlepatientSubmit = () => {
@@ -63,7 +72,8 @@ export default class PatientSetup extends React.Component {
 
   handlesymptomsSubmit = () => {
     let data = {
-      symptoms: this.state.symptoms.value,
+      symptoms: this.state.symptoms.label,
+      key:this.state.symptoms.value,
       info:'Add your symptoms '
     }
     this.props.handlesymtomsSetup(data)
@@ -96,7 +106,7 @@ export default class PatientSetup extends React.Component {
   };
   handlerradioChanger = (event) => {
     console.log(event.target.name + event.target.value)
-    let newsymptoms = this.props.data.symptoms
+    // let newsymptoms = this.props.data.symptoms
 
     // newsymptoms.map(sym=>{
     //     if(sym==event.target.name)
@@ -200,8 +210,8 @@ export default class PatientSetup extends React.Component {
             {this.props.data.symptoms && this.props.data.symptoms.length >0 && this.props.data.symptoms.map(symptom =>
                   
                   <div className="diagnose-parent-syptomslist-parent">
-                          <div className="diagnose-parent-syptomslist-parent-head" key={symptom.index}>{symptom}</div>
-                          <div className="diagnose-parent-syptomslist-parent-img" key={symptom.index} onClick={() => this.props.removeElement(symptom)}></div>
+                          <div className="diagnose-parent-syptomslist-parent-head">{symptom["symptom"]}</div>
+                          <div className="diagnose-parent-syptomslist-parent-img" onClick={() => this.props.removeElement(symptom)}></div>
 
                   </div>
                    )
@@ -243,11 +253,11 @@ export default class PatientSetup extends React.Component {
                 {this.props.data.symptoms && this.props.data.symptoms.map((val, key) =>
 
                   <tr onChange={this.handlerradioChanger}>
-                    <td>{val}</td>
-                    <td> <input type="radio" value="1" name={val} /> </td>
-                    <td> <input type="radio" value="2" name={val} /> </td>
-                    <td> <input type="radio" value="3" name={val} /> </td>
-                    <td> <input type="radio" value="4" name={val} /> </td>
+                    <td>{val["symptom"]}</td>
+                    <td> <input type="radio" value="1" name={val["symptom"]} /> </td>
+                    <td> <input type="radio" value="2" name={val["symptom"]} /> </td>
+                    <td> <input type="radio" value="3" name={val["symptom"]} /> </td>
+                    <td> <input type="radio" value="4" name={val["symptom"]} /> </td>
                   </tr>
 
                 )}
@@ -293,8 +303,19 @@ export default class PatientSetup extends React.Component {
 
         {this.props.activeStep === 6 ?
           <>
-            hello
-         
+          <div className="disease-parent-head">Please note that the list below may not be complete and is provided solely for informational purposes and is not a qualified medical opinion.</div>
+
+            <ul>
+            {this.props.data.disease&&this.props.data.disease.map((e,key)=>
+            <>
+           
+            
+           <div className="disease-parent-title"><li>{e}</li></div>
+
+           
+            </>
+            )}
+          </ul>
             <div className="diagnose-btn-next" onClick={()=>this.props.handlegenInfoSetup(this.state.moreinfo)}> NEXT </div>
             <div className="diagnose-btn-back" onClick={this.handlebackSubmit}> BACK </div>
           </>

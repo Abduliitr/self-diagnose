@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { Link } from 'react-router-dom'
 import '../assets/css/diagnosis.css'
-
+import FetchAPI from '../utils/fetchAPI';
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col, Button, Label } from "reactstrap";
 
@@ -35,7 +35,8 @@ class Diagnosis extends React.Component {
       gender: '',
       symptoms: [],
       symptomduration:{},
-      moreinfo:{}
+      moreinfo:{},
+      disease:[]
     }
   }
 
@@ -85,12 +86,12 @@ class Diagnosis extends React.Component {
   handlesymtomsSetup = data => {
     let newsymptoms = this.state.symptoms;
    
-    let dummy=newsymptoms.filter( e=> e == data.symptoms) 
+    let dummy=newsymptoms.filter( e=> e["symptom"] == data.symptoms) 
 
-    console.log(dummy,"dummy")
+    // console.log(dummy,"dummy")
     if(dummy==undefined||dummy===null||dummy.length===0)
     {
-    newsymptoms.push(data.symptoms)
+    newsymptoms.push({"symptom":data.symptoms,"value":data.key})
     this.setState({
       symptoms: newsymptoms,
     })
@@ -149,6 +150,17 @@ class Diagnosis extends React.Component {
   }
   handlegenInfoSetup=(data)=>{
     this.setState({moreinfo:data,activeStep:this.state.activeStep + 1})
+    let arr=this.state.symptoms.map(e=>  e["value"])
+    var zero = new Array(132).fill(0);
+
+    arr.map(val=>zero[val]=1)
+    let textjson={"symptoms":zero}
+    console.log(zero)
+    FetchAPI('POST', '/api/v1/symptoms', textjson, null)
+    .then(res => {
+        this.setState({disease:res.data});
+        // console.log(res);
+      })
   }
   render() {
     return (
@@ -224,7 +236,7 @@ class Diagnosis extends React.Component {
              {this.state.activeStep === 6 ? (
               <PatientSetup
                 data={this.state}
-                info="Few more Information"
+                info="RESULTS"
                 activeStep={6}
                 handlebackSubmit={this.handlebackSubmit}
                 handlegenInfoSetup={this.handlegenInfoSetup}
