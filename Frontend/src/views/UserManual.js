@@ -65,22 +65,24 @@ class UserManual extends React.Component {
             <Col md={4}>
             <Card className="card-stats">
                   <CardHeader>
-                    <CardTitle tag="h5">
-                        <Link to="/admin/text2isl" style={{color:"#fbc658", textDecoration:"none"}}>
-                            English to ISL{"  "}
-                        </Link>
+                    <CardTitle tag="h5" style={{color:"#fb7658"}}>
+                        {/* <Link to="/admin/text2isl" style={{color:"#fbc658", textDecoration:"none"}}> */}
+                          Ideology
+                        {/* </Link> */}
                     </CardTitle>
                   </CardHeader>
                   <CardBody>
                     <Row> 
                       <Col md="12">
                         <div className="numbers" style={{textAlign:"left"}}>
-                          {/* <p className="card-category">(Images Used : 1000+)</p> */}
+                          <p className="card-category">
+                            Our software would include two components:
+                          </p>
+                          <br />
                           <p className="card-category">
                                 <ul>
-                                    <li>Consists of ISL animations of almost 1000+ English words..</li><br />
-                                    <li>Uses synonym feature for words not present in dictionary</li><br />
-                                    <li>Spells out the complicated words</li>
+                                    <li>A knowledge Base</li><br />
+                                    <li>A diagnostic Engine</li><br />
                                 </ul>
                               </p>
                           <p />
@@ -101,7 +103,7 @@ class UserManual extends React.Component {
                   <CardHeader>
                     <CardTitle tag="h5">
                         <Link to="/admin/isl2text" style={{color:"#6bd098", textDecoration:"none"}}>
-                            ISL to English (Static){"  "}
+                            Aim and Mission
                         </Link>
                     </CardTitle>
                   </CardHeader>
@@ -112,9 +114,9 @@ class UserManual extends React.Component {
                           {/* <p className="card-category">(Images Used : 1000+)</p> */}
                           <p className="card-category">
                                 <ul>
-                                    <li>Can predict the geture of single digit numbers</li><br />
-                                    <li>Can predict the gesture of alphabets except H and Y (since there gesture is dynamic..)</li><br />
-                                    <li>Fast processing based on Image classification</li>
+                                    <li>Our software is not here to put real physicians out of work.  </li><br />
+                                    <li>Its mission is to keep patients better informed about the possible roots of their conditions and consult the relevant specialists for their ailment.</li><br />
+                                    {/* <li>Fast processing based on Image classification</li> */}
                                 </ul>
                               </p>
                           <p />
@@ -135,7 +137,7 @@ class UserManual extends React.Component {
                   <CardHeader>
                     <CardTitle tag="h5">
                         <Link to="/admin/isl2text" style={{color:"#ef8157", textDecoration:"none"}}>
-                            ISL to English (Dynamic){"  "}
+                          How to use?  
                         </Link>
                     </CardTitle>
                   </CardHeader>
@@ -146,9 +148,9 @@ class UserManual extends React.Component {
                           {/* <p className="card-category">(Images Used : 1000+)</p> */}
                           <p className="card-category">
                                 <ul>
-                                    <li>Can predict the geture except those alphabets and numbers</li><br />
+                                    <li>Go to the the "SELF DIAGNOSIS" Component, using the navigation bar in the left, or through dashboard.</li><br />
                                     {/* <li>Can predict the gesture of alphabets except H and Y (since there gesture is dynamic..)</li><br /> */}
-                                    <li>Takes relatively more time as it's based on video classification</li>
+                                    <li>The Software asks for few details about you and Symptoms. Answer them carefully, and it will help you in diagnosis</li>
                                 </ul>
                               </p>
                           <p />

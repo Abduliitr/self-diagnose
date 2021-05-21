@@ -183,12 +183,12 @@ class Dashboard extends React.Component {
                   />
                 </CardBody>
                 <CardFooter>
-                  <div className="legend">
+                  {/* <div className="legend">
                     <i className="fa fa-circle text-primary" style={{padding:"5px"}} /> Art{"   "}
                     <i className="fa fa-circle text-warning" style={{padding:"5px"}}/> Deaf{"   "}
                     <i className="fa fa-circle text-danger" style={{padding:"5px"}}/> I{"   "}
                     <i className="fa fa-circle text-gray" style={{padding:"5px"}}/> Clear
-                  </div>
+                  </div> */}
                   <hr />
                   {/* <div className="stats">
                     <i className="fa fa-calendar" /> Number of emails sent
@@ -200,7 +200,7 @@ class Dashboard extends React.Component {
               {/* <Col lg="4" md="12" sm="12"> */}
                 <Card className="card-stats">
                   <CardHeader>
-                    <CardTitle tag="h5">Dataset Statistics</CardTitle>
+                    <CardTitle tag="h5">Statistics</CardTitle><hr />
                     {/* <p className="card-category">For Dynamic Gesture Recognition</p> */}
                   </CardHeader>
                   <CardBody>
@@ -208,15 +208,17 @@ class Dashboard extends React.Component {
                       
                       <Col md="9" xs="7">
                         <div className="numbers" style={{textAlign:"left"}}>
-                          <p className="card-category">Dynamic Model Efficiency : 80.3%</p>
-                          <p className="card-category">(Videos Used : 500+)</p>
-                          <br />
-                          <p className="card-category">Static Model Efficiency : 98.5%</p>
-                          <p className="card-category">(Images Used : 10,000+)</p>
-                          <br />
-                          <p className="card-category">Text to ISL Dictionary : 1000+ words</p>
-                          {/* <p className="card-category">(Images Used : 1000+)</p> */}
+                          <p className="card-category">Model Accuracy: 95% approx.</p>
+                          {/* <p className="card-category">Close to 95%</p> */}
                           <p />
+                          <br />
+                          <p className="card-category">No. of Symptoms: 132</p>
+                          {/* <p className="card-category"></p> */}
+                          <br />
+                          <p className="card-category">No. of Diseases: 41</p>
+                          {/* <p className="card-category"></p> */}
+                          <br />
+                          
                         </div>
                       </Col>
                       <Col md="3" xs="5">
